@@ -1,7 +1,8 @@
 import re
 
+PARSE = re.compile('(\d+) *- *(\d+)')
 def parse(text):
-  return re.compile('(\d+) *- *(\d+)').fullmatch(text).groups()
+    return PARSE.fullmatch(text).groups()
 
 class Breed:
   """
