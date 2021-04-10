@@ -166,36 +166,46 @@ class Category:
     """
     return f"<{self.__class__.__name__} id={self.id!r}, name={self.name!r}>"
 
-class CatImage:
+class Cat:
   """
-  A class representing a cat image.
+  A class representing a cat.
   
   Attributes
   ----------
   id : `str`
-    The id of the image.
+    The id of the cat image.
   url : `str`
-    The url of the image.
-  width : `int`
-    The width of the image.
+    The url of the cat image.
+  width : `int` 
+    The width of the cat image.
   height : `int`
-    The height of the image.
+    The height of the cat image.
+  breeds : `list`
+    A list of breeds object.
+  category : `list`
+    A list of category the cat is in.
   """
   
   def __init__(self, cat):
     """
-    Creates a new CatImage object
+    Creates a new Cat object
     
     Parameters
     ----------
     cat : `dict`
       The source of all data.
     """
-    self.id = image['name']
-    self.url = image['url']
-    self.width = image['width']
-    self.height = image['height']
-  
+    self.id = cat['id']
+    self.url = cat['url']
+    self.width = cat['width']
+    self.height = cat['height']
+    self.breeds = [Breed(breed) for breed in cat['breeds']]
+    
+    if cat.get('categories') is not None:
+      self.category = [Category(category) for category in image['categories']]
+    else:
+      self.category = []
+    
   def __repr__(self):
     """
     Returns the representation of the object.
