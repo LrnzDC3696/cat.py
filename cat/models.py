@@ -86,7 +86,7 @@ class Breed:
   
   def __init__(self, breeds):
     """
-    Parses the breeds dictionary and creates a new Breed object
+    Parses the breeds dictionary and creates a new Breed object.
     
     Parameters
     ----------
@@ -132,33 +132,90 @@ class Breed:
   
   def __repr__(self):
     """
-    Returns the representation of the object
+    Returns the representation of the object.
     """
     return f"<{self.__class__.__name__} id={self.id!r}, name={self.name!r}>"
 
 class Category:
-  pass
+  """
+  A class to represent a Category object.
+  
+  Attributes
+  ----------
+  id : `int`
+    The id of the category.
+  name : `str`
+    The name of the category.
+  """
+  
+  def __init__(self, category):
+    """
+    Creates a new category object.
+    
+    Parameters
+    ----------
+    category : `dict`
+      The source of data.
+    """
+    self.id = category['id']
+    self.name = category['name']
 
-class Fact:
-  pass
+  def __repr__(self):
+    """
+    Returns the representation of the object.
+    """
+    return f"<{self.__class__.__name__} id={self.id!r}, name={self.name!r}>"
+
+class CatImage:
+  """
+  A class representing a cat image.
+  
+  Attributes
+  ----------
+  id : `str`
+    The id of the image.
+  url : `str`
+    The url of the image.
+  width : `int`
+    The width of the image.
+  height : `int`
+    The height of the image.
+  """
+  
+  def __init__(self, cat):
+    """
+    Creates a new CatImage object
+    
+    Parameters
+    ----------
+    cat : `dict`
+      The source of all data.
+    """
+    self.id = image['name']
+    self.url = image['url']
+    self.width = image['width']
+    self.height = image['height']
+  
+  def __repr__(self):
+    """
+    Returns the representation of the object.
+    """
+    return f"<{self.__class__.__name__} id={self.id!r}>"
 
 class Favourite:
   pass
 
-class ImageShort:
-  pass
-
-class ImageFull(ImageShort):
-  pass
-
 class ImageAnalysis:
-  pass
-
-class Source:
   pass
 
 class Sponsor:
   pass
 
 class Vote:
+  pass
+
+class Source:
+  pass
+
+class Fact:
   pass
