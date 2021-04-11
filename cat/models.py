@@ -188,13 +188,13 @@ class Cat:
     A list of category the cat is in.
   """
   
-  def __new__(self, data):
+  def __new__(cls, data):
     """
-    Creates a new Cat object
+    Creates a new Cat object if the object is not in cat_cache
     
     Parameters
     ----------
-    cat : `dict`
+    data : `dict`
       The source of all data.
     """
     cat_id = data['id']
@@ -212,11 +212,12 @@ class Cat:
         
     try:
       category_datas = data['categories']
-    except:
+    except KeyError:
       categories = None
     else:
       categories = [Category(category_data) for category_data in category_datas]
-      self.categories = categories    
+    
+    self.categories = categories    
     
     cat_cache[cat_id] = self
         
