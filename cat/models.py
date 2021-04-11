@@ -1,5 +1,7 @@
 import re
 
+cat_cache = {}
+
 PARSE = re.compile('(\d+) *- *(\d+)')
 def parse(text):
     return PARSE.fullmatch(text).groups()
@@ -182,11 +184,11 @@ class Cat:
     The height of the cat image.
   breeds : `list`
     A list of breeds object.
-  category : `list`
+  categories : `list`
     A list of category the cat is in.
   """
   
-  def __init__(self, cat):
+  def __new__(self, data):
     """
     Creates a new Cat object
     
@@ -195,17 +197,31 @@ class Cat:
     cat : `dict`
       The source of all data.
     """
-    self.id = cat['id']
-    self.url = cat['url']
-    self.width = cat['width']
-    self.height = cat['height']
-    self.breeds = [Breed(breed) for breed in cat['breeds']]
+    cat_id = data['id']
+    try:
+      return cat_cache[cat_id]
+    except KeyError:
+      pass
     
-    if cat.get('categories') is not None:
-      self.category = [Category(category) for category in image['categories']]
+    self = object.__new__(cls)
+    self.id = cat_id
+    self.url = data['url']
+    self.width = data['width']
+    self.height = data['height']
+    self.breeds = [Breed(breed_data) for breed_data in data['breeds']]
+        
+    try:
+      category_datas = data['categories']
+    except:
+      categories = None
     else:
-      self.category = []
+      categories = [Category(category_data) for category_data in category_datas]
+      self.categories = categories    
     
+    cat_cache[cat_id] = self
+        
+    return self
+  
   def __repr__(self):
     """
     Returns the representation of the object.
