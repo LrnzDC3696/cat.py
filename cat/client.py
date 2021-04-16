@@ -43,22 +43,18 @@ class Client:
       Limit of cat objects to return.
     page  : `int`, optional
       The results page to return. Pagination wouldn't work if order is not set.
-    order : `bool`, default: None
+    order : `str`
       The order in which the results are sorted by.
-      None for randomised, True if you want it in descending order,
-      and False if ascending.
+      rand for randomised, desc for descending order,
+      and asc if ascending.
     
     Returns
     ----------
     list
       A list of cat objects
     """
-    if order is None:
-      order = 'rand'
-    elif order:
-      order = 'desc'
-    else:
-      order = 'asc'
+    if order not in {'rand','desc','asc'}:
+      raise ValueError('image_type must be rand, desc or asc')
     
     data = self._get('/images/search',
       {"limit":limit,'page':page,'order':order}
@@ -99,26 +95,23 @@ class Client:
     data = self._get('/images/search', {'category_ids':category_ids})
     return [Cat(cat_dict) for cat_dict in data]
   
-  def get_cat_image_type(self, image_type=None):
+  def get_cat_image_type(self, image_type):
     """
     Gets all the cat object based on the parameters
     
     Parameters
     ----------
-    image_type : `bool`, default: None
-      None for jpg, True for gif, and False for png.
+    image_type : `str`
+      Type of the image. Must be in jpg, png or gif
     
     Returns
     ----------
     list
       A list of cat objects
     """
-    if image_type is None:
-      image_type = 'jpg'
-    elif image_type:
-      image_type = 'gif'
-    else:
-      image_type = 'png'
+    
+    if image_type not in {'jpg','png','gif'}:
+      raise ValueError('image_type must be jpg, png or gif')
     
     data = self._get('/images/search',
       {'mime_types':image_type}
