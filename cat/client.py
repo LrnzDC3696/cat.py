@@ -43,17 +43,18 @@ class Client:
       Limit of cat objects to return.
     page  : `int`, optional
       The results page to return. Pagination wouldn't work if order is not set.
-    order : `bool`, default: 'rand'
+    order : `bool`, default: None
       The order in which the results are sorted by.
-      True if you want it in descending order and False if ascending.
+      None for randomised, True if you want it in descending order,
+      and False if ascending.
     
     Returns
     ----------
     list
       A list of cat objects
     """
-    if order == 'rand':
-      pass
+    if order is None:
+      order = 'rand'
     elif order:
       order = 'desc'
     else:
@@ -98,22 +99,22 @@ class Client:
     data = self._get('/images/search', {'category_ids':category_ids})
     return [Cat(cat_dict) for cat_dict in data]
   
-  def get_cat_image_type(self, image_type='jpg'):
+  def get_cat_image_type(self, image_type=None):
     """
     Gets all the cat object based on the parameters
     
     Parameters
     ----------
-    image_type : `bool`, default: 'jpg'
-      True for gif and False for png.
+    image_type : `bool`, default: None
+      None for jpg, True for gif, and False for png.
     
     Returns
     ----------
     list
       A list of cat objects
     """
-    if image_type == 'jpg':
-      pass
+    if image_type is None:
+      image_type = 'jpg'
     elif image_type:
       image_type = 'gif'
     else:
