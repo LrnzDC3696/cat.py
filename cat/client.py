@@ -1,5 +1,5 @@
 from requests import get
-from models import Cat
+from .models import Cat
 
 CAT_URL = 'https://api.thecatapi.com/v1'
 
