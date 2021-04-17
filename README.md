@@ -24,7 +24,7 @@ neko = Client("my_api_key")
 Getting five cats in page 1 in ascending order.
 
 ```python
-neko.get_cat(5, 1, "asc")
+cat = neko.get_cat(5, 1, "asc")
 ```
 
 #### Getting cat by breed
@@ -32,7 +32,7 @@ neko.get_cat(5, 1, "asc")
 Getting cyprus breeded cat.
 
 ```python
-neko.get_cat_breed("Cyprus")
+cat = neko.get_cat_breed("Cyprus")
 ```
 
 #### Getting cat by category
@@ -40,7 +40,7 @@ neko.get_cat_breed("Cyprus")
 Getting all cats in the category 69. Sadly there is None.
 
 ```python
-neko.get_cat_category(69)
+cat = neko.get_cat_category(69)
 ```
 
 #### Getting cat by image type
@@ -48,5 +48,5 @@ neko.get_cat_category(69)
 Getting cat with the gif type image.
 
 ```python
-neko.get_cat_image_type("gif")
+cat = neko.get_cat_image_type("gif")
 ```
