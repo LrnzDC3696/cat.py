@@ -3,7 +3,7 @@ import pathlib
 
 here = pathlib.Path(__file__).parent.resolve()
 
-VERSION = '1'
+VERSION = '1.0.1'
 DESCRIPTION = '"The Cat Api" api wrapper in python.'
 LONG_DESCRIPTION = (here / 'README.md').read_text(encoding='utf-8')
 
