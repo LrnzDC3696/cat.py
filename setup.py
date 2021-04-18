@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
-import pathlib
-import re
+from ast import literal_eval
+import pathlib, re
 
 here = pathlib.Path(__file__).parent.resolve()
 
