@@ -1,5 +1,5 @@
 # cat.py
-["The ](https://bit.ly/2EqoBMo)[cat ](thecatapi.comthecatapi.com)[api  "](https://bit.ly/2EqoBMohttps://bit.ly/2EqoBMo) api wrapper in python
+["The ](https://bit.ly/2EqoBMo)[cat ](thecatapi.comthecatapi.com)[api  "](https://bit.ly/2EqoBMohttps://bit.ly/2EqoBMo) async api wrapper in python
 
 ## Installation
 
@@ -12,9 +12,16 @@
 Set your own client by first getting an apikey at [```thecatapi```](https://thecatapi.com)
 
 ```python
+import asyncio
 from cat import Client
 
-neko = Client("my_api_key")
+def main():
+  neko = Client("my_api_key")
+  ...
+  
+  await neko.close()
+  
+asyncio.run(main())
 ```
 
 ### Examples
@@ -24,7 +31,7 @@ neko = Client("my_api_key")
 Getting five cats in page 1 in ascending order.
 
 ```python
-cat = neko.get_cat(5, 1, "asc")
+  cat = await neko.get_cat(5, 1, "asc")
 ```
 
 #### Getting cat by breed
@@ -32,7 +39,7 @@ cat = neko.get_cat(5, 1, "asc")
 Getting cyprus breeded cat.
 
 ```python
-cat = neko.get_cat_breed("Cyprus")
+  cat = await neko.get_cat_breed("Cyprus")
 ```
 
 #### Getting cat by category
@@ -40,7 +47,7 @@ cat = neko.get_cat_breed("Cyprus")
 Getting all cats in the category 69. Sadly there is None.
 
 ```python
-cat = neko.get_cat_category(69)
+  cat = await neko.get_cat_category(69)
 ```
 
 #### Getting cat by image type
@@ -48,5 +55,5 @@ cat = neko.get_cat_category(69)
 Getting cat with the gif type image.
 
 ```python
-cat = neko.get_cat_image_type("gif")
+  cat = await neko.get_cat_image_type("gif")
 ```

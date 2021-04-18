@@ -229,20 +229,22 @@ class Cat:
     """
     return f"<{self.__class__.__name__} id={self.id!r}>"
 
-class Favourite:
-  pass
+#Not Implemented Yet
+# class Favourite:
+#  pass
+#
+#class ImageAnalysis:
+#  pass
+#
+#class Sponsor:
+#  pass
+#
+#class Vote:
+#  pass
+#
+#class Source:
+#  pass
+#
+#class Fact:
+#  pass
 
-class ImageAnalysis:
-  pass
-
-class Sponsor:
-  pass
-
-class Vote:
-  pass
-
-class Source:
-  pass
-
-class Fact:
-  pass

@@ -1,4 +1,5 @@
-from requests import get
+import asyncio
+import aiohttp
 from .models import Cat
 
 CAT_URL = 'https://api.thecatapi.com/v1'
@@ -16,8 +17,18 @@ class Client:
       Api key for your client.
     """
     self.api_key = api_key
+    self._session = None
   
-  def _get(self, path, params = {}):
+  async def close(self):
+    """
+    Closes the session
+    """
+    session = self._session
+    if session is not None:
+      self._session = None
+      await session.close()
+  
+  async def _get(self, path, params = {}):
     """
     Requests data from the cat api.
     
@@ -31,9 +42,12 @@ class Client:
     dict
       A dictionary that contains all of the cat info needed.
     """
-    return get(CAT_URL + path, params=params, headers={'x-api-key':self.api_key}).json()
-
-  def get_cat(self,limit=None,page=None,order='rand'):
+    if self._session is None:
+      self._session = aiohttp.ClientSession()
+    data = await self._session.get(CAT_URL + path, params=params, headers={'x-api-key':self.api_key})
+    return await data.json()
+    
+  async def get_cat(self,limit=0,page=0,order='rand'):
     """
     Gets all the cat object based on the parameters
     
@@ -56,12 +70,12 @@ class Client:
     if order not in {'rand','desc','asc'}:
       raise ValueError('image_type must be rand, desc or asc')
     
-    data = self._get('/images/search',
+    data = await self._get('/images/search',
       {"limit":limit,'page':page,'order':order}
     )
     return [Cat(cat_dict) for cat_dict in data]
   
-  def get_cat_breed(self, name):
+  async def get_cat_breed(self, name):
     """
     Gets all the cat object based on the breed name
     
@@ -75,10 +89,10 @@ class Client:
     list
       A list of cat objects
     """
-    data = self._get('/images/search', {'breeds':name})
+    data = await self._get('/images/search', {'breeds':name})
     return [Cat(cat_dict) for cat_dict in data]
   
-  def get_cat_category(self, category_ids):
+  async def get_cat_category(self, category_ids):
     """
     Gets all the cat object based on the category
     
@@ -92,10 +106,10 @@ class Client:
     list
       A list of cat objects
     """
-    data = self._get('/images/search', {'category_ids':category_ids})
+    data = await self._get('/images/search', {'category_ids':category_ids})
     return [Cat(cat_dict) for cat_dict in data]
   
-  def get_cat_image_type(self, image_type):
+  async def get_cat_image_type(self, image_type):
     """
     Gets all the cat object based on the parameters
     
@@ -113,7 +127,7 @@ class Client:
     if image_type not in {'jpg','png','gif'}:
       raise ValueError('image_type must be jpg, png or gif')
     
-    data = self._get('/images/search',
+    data = await self._get('/images/search',
       {'mime_types':image_type}
     )
     return [Cat(cat_dict) for cat_dict in data]

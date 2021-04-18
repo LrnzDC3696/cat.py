@@ -1,10 +1,19 @@
 from setuptools import setup, find_packages
 import pathlib
+import re
+
+
+version_search_pattern = re.compile('^__version__[ ]*=[ ]*((?:\'[^\']+\')|(?:\"[^\"]+\"))[ ]*$', re.M)
+parsed = version_search_pattern.search((HERE / 'hata' / '__init__.py').read_text())
+if parsed is None:
+    raise RuntimeError('No version found in `__init__.py`.')
+
+VERSION = literal_eval(parsed.group(1))
+
 
 here = pathlib.Path(__file__).parent.resolve()
 
-VERSION = '1.0.2'
-DESCRIPTION = '"The Cat Api" api wrapper in python.'
+DESCRIPTION = '"The Cat Api" async api wrapper in python.'
 LONG_DESCRIPTION = (here / 'README.md').read_text(encoding='utf-8')
 
 
@@ -18,5 +27,5 @@ setup(
 	author = 'WeMayNeverKnow',
 	keywords = ['cats', 'api wrapper', 'thecatapi'],
   packages = find_packages(),
-  install_requires=['requests'],
+  install_requires=['aiohttp'],
 )
