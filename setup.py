@@ -2,16 +2,16 @@ from setuptools import setup, find_packages
 import pathlib
 import re
 
+here = pathlib.Path(__file__).parent.resolve()
+
 
 version_search_pattern = re.compile('^__version__[ ]*=[ ]*((?:\'[^\']+\')|(?:\"[^\"]+\"))[ ]*$', re.M)
-parsed = version_search_pattern.search((HERE / 'hata' / '__init__.py').read_text())
+parsed = version_search_pattern.search((here / 'cat' / '__init__.py').read_text())
 if parsed is None:
     raise RuntimeError('No version found in `__init__.py`.')
 
 VERSION = literal_eval(parsed.group(1))
 
-
-here = pathlib.Path(__file__).parent.resolve()
 
 DESCRIPTION = '"The Cat Api" async api wrapper in python.'
 LONG_DESCRIPTION = (here / 'README.md').read_text(encoding='utf-8')
