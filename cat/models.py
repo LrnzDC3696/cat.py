@@ -95,42 +95,57 @@ class Breed:
     breeds : `dict`
       The source of all data.
     """
-    self.adaptability = breeds['adaptability']
-    self.affection_level = breeds['affection_level']
-    self.alt_names = breeds['alt_names'].split(', ')
-    self.cfa_url = breeds['cfa_url']
-    self.child_friendly = breeds['child_friendly']
-    self.country_code = breeds['country_code']
-    self.country_codes = breeds['country_codes'].split(', ')
-    self.description = breeds['description']
-    self.dog_friendly = breeds['dog_friendly']
-    self.energy_level = breeds['energy_level']
-    self.experimental = bool(breeds['experimental'])
-    self.grooming = breeds['grooming']
-    self.hairless = bool(breeds['hairless'])
-    self.health_issues = breeds['health_issues']
-    self.hypoallergenic = bool(breeds['hypoallergenic'])
-    self.id = breeds['id']
-    self.indoor = bool(breeds['indoor'])
-    self.intelligence = breeds['intelligence']
-    self.life_span = parse(breeds['life_span'])
-    self.name = breeds['name']
-    self.natural = bool(breeds['natural'])
-    self.origin = breeds['origin']
-    self.rare = bool(breeds['rare'])
-    self.reference_image_id = breeds['reference_image_id']
-    self.rex = bool(breeds['rex'])
-    self.shedding_level = breeds['shedding_level']
-    self.short_legs = bool(breeds['short_legs'])
-    self.social_needs = breeds['social_needs']
-    self.stranger_friendly = breeds['stranger_friendly']
-    self.suppressed_tail = breeds['suppressed_tail']
-    self.temperament = breeds['temperament'].split(', ')
-    self.vcahospitals_url = breeds['vcahospitals_url']
-    self.vetstreet_url = breeds['vetstreet_url']
-    self.vocalisation = breeds['vocalisation']
-    self.weight = parse(breeds['weight']['metric'])
-    self.wikipedia_url = breeds['wikipedia_url']
+    self.adaptability = breeds.get('adaptability')
+    self.affection_level = breeds.get('affection_level'
+    
+    alt_names = breeds.get('alt_names')
+    self.alt_names = alt_names and alt_names.split(', ')
+    
+    self.cfa_url = breeds.get('cfa_url')
+    self.child_friendly = breeds.get('child_friendly')
+    self.country_code = breeds.get('country_code')
+    
+    codes = breeds.get('country_codes')
+    self.country_codes = codes and codes.split(', ')
+    
+    self.description = breeds.get('description')
+    self.dog_friendly = breeds.get('dog_friendly')
+    self.energy_level = breeds.get('energy_level')
+    self.experimental = bool(breeds.get('experimental']))
+    self.grooming = breeds.get('grooming')
+    self.hairless = bool(breeds.get('hairless'))
+    self.health_issues = breeds.get('health_issues')
+    self.hypoallergenic = bool(breeds.get('hypoallergenic'))
+    self.id = breeds.get('id')
+    self.indoor = bool(breeds.get('indoor'))
+    self.intelligence = breeds.get('intelligence')
+    
+    life = breeds.get('life_span')
+    self.life_span = life and parse(life)
+    
+    self.name = breeds.get('name')
+    self.natural = bool(breeds.get('natural'))
+    self.origin = breeds.get('origin')
+    self.rare = bool(breeds.get('rare'))
+    self.reference_image_id = breeds.get('reference_image_id')
+    self.rex = bool(breeds.get('rex'))
+    self.shedding_level = breeds.get('shedding_level')
+    self.short_legs = bool(breeds.get('short_legs'))
+    self.social_needs = breeds.get('social_needs')
+    self.stranger_friendly = breeds.get('stranger_friendly')
+    self.suppressed_tail = breeds.get('suppressed_tail')
+    
+    temperament = breeds.get('temperament')
+    self.temperament = temperament or temperament.split(', ')
+    
+    self.vcahospitals_url = breeds.get('vcahospitals_url')
+    self.vetstreet_url = breeds.get('vetstreet_url')
+    self.vocalisation = breeds.get('vocalisation')
+    
+    weight = breeds.get('weight')
+    metric = weight and weight.get('metric')
+    self.weight = metric or parse(metric)
+    self.wikipedia_url = breeds.get('wikipedia_url')
   
   def __repr__(self):
     """
