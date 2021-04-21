@@ -96,7 +96,7 @@ class Breed:
       The source of all data.
     """
     self.adaptability = breeds.get('adaptability')
-    self.affection_level = breeds.get('affection_level'
+    self.affection_level = breeds.get('affection_level')
     
     alt_names = breeds.get('alt_names')
     self.alt_names = alt_names and alt_names.split(', ')
@@ -111,7 +111,7 @@ class Breed:
     self.description = breeds.get('description')
     self.dog_friendly = breeds.get('dog_friendly')
     self.energy_level = breeds.get('energy_level')
-    self.experimental = bool(breeds.get('experimental']))
+    self.experimental = bool(breeds.get('experimental'))
     self.grooming = breeds.get('grooming')
     self.hairless = bool(breeds.get('hairless'))
     self.health_issues = breeds.get('health_issues')
