@@ -89,7 +89,7 @@ class Client:
     list
       A list of cat objects
     """
-    if order not in {'rand','desc','asc'}:
+    if order not in {'rand','desc','asc', None}:
       raise ValueError('image_type must be rand, desc or asc')
     
     data = await self._get('/images/search', {'breeds':name, "limit":limit,'page':page,'order':order})
@@ -109,7 +109,7 @@ class Client:
     list
       A list of cat objects
     """
-    if order not in {'rand','desc','asc'}:
+    if order not in {'rand','desc','asc', None}:
       raise ValueError('image_type must be rand, desc or asc')
     
     data = await self._get('/images/search', {'category_ids':category_ids, "limit":limit,'page':page,'order':order})
@@ -130,7 +130,7 @@ class Client:
       A list of cat objects
     """
     
-    if image_type not in {'jpg','png','gif'}:
+    if image_type not in {'jpg','png','gif', None}:
       raise ValueError('image_type must be jpg, png or gif')
     
     data = await self._get('/images/search',
