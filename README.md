@@ -1,5 +1,6 @@
 # cat.py
 ["The ](https://bit.ly/2EqoBMo)[cat ](thecatapi.comthecatapi.com)[api  "](https://bit.ly/2EqoBMohttps://bit.ly/2EqoBMo) async api wrapper in python
+Archived because I felt is was useless but is was fun making this project I learned so much.
 
 ## Installation
 
