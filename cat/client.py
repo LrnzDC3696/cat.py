@@ -28,7 +28,7 @@ class Client:
       self._session = None
       await session.close()
   
-  async def _get(self, path, params = {}):
+  async def _get(self, path, params = None):
     """
     Requests data from the cat api.
     
@@ -44,7 +44,7 @@ class Client:
     """
     if self._session is None:
       self._session = aiohttp.ClientSession()
-    data = await self._session.get(CAT_URL + path, params=params, headers={'x-api-key':self.api_key})
+    data = await self._session.get(CAT_URL + path, params=params or {}, headers={'x-api-key':self.api_key})
     return await data.json()
     
   async def get_cat(self,limit=0,page=0,order='rand'):
@@ -75,7 +75,7 @@ class Client:
     )
     return [Cat(cat_dict) for cat_dict in data]
   
-  async def get_cat_breed(self, name):
+  async def get_cat_breed(self, name, limit = 0, page = 0, order = 'rand'):
     """
     Gets all the cat object based on the breed name
     
@@ -89,10 +89,13 @@ class Client:
     list
       A list of cat objects
     """
-    data = await self._get('/images/search', {'breeds':name})
+    if order not in {'rand','desc','asc'}:
+      raise ValueError('image_type must be rand, desc or asc')
+    
+    data = await self._get('/images/search', {'breeds':name, "limit":limit,'page':page,'order':order})
     return [Cat(cat_dict) for cat_dict in data]
   
-  async def get_cat_category(self, category_ids):
+  async def get_cat_category(self, category_ids, limit = 0, page = 0, order = 'rand'):
     """
     Gets all the cat object based on the category
     
@@ -106,10 +109,13 @@ class Client:
     list
       A list of cat objects
     """
-    data = await self._get('/images/search', {'category_ids':category_ids})
+    if order not in {'rand','desc','asc'}:
+      raise ValueError('image_type must be rand, desc or asc')
+    
+    data = await self._get('/images/search', {'category_ids':category_ids, "limit":limit,'page':page,'order':order})
     return [Cat(cat_dict) for cat_dict in data]
   
-  async def get_cat_image_type(self, image_type):
+  async def get_cat_image_type(self, image_type, limit = 0, page = 0, order = 'rand'):
     """
     Gets all the cat object based on the parameters
     
@@ -128,6 +134,6 @@ class Client:
       raise ValueError('image_type must be jpg, png or gif')
     
     data = await self._get('/images/search',
-      {'mime_types':image_type}
+      {'mime_types':image_type, "limit":limit,'page':page,'order':order}
     )
     return [Cat(cat_dict) for cat_dict in data]
